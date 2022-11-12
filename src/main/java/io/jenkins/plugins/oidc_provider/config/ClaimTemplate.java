@@ -31,6 +31,7 @@ import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
 import io.jenkins.plugins.oidc_provider.IdTokenCredentials;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import jenkins.model.Jenkins;
@@ -44,11 +45,13 @@ public final class ClaimTemplate extends AbstractDescribableImpl<ClaimTemplate> 
     public final @NonNull String name;
     public final @NonNull String format;
     public final @NonNull ClaimType type;
+    public final @NonNull List<String> requiredEnvVars;
 
-    @DataBoundConstructor public ClaimTemplate(String name, String format, ClaimType type) {
+    @DataBoundConstructor public ClaimTemplate(String name, String format, ClaimType type, List<String> requiredEnvVars) {
         this.name = name;
         this.format = format;
         this.type = type;
+        this.requiredEnvVars = requiredEnvVars;
     }
 
     @Restricted(NoExternalUse.class)
@@ -63,6 +66,9 @@ public final class ClaimTemplate extends AbstractDescribableImpl<ClaimTemplate> 
 
     @Extension public static final class DescriptorImpl extends Descriptor<ClaimTemplate> {
 
+        public List<String> getDefaultRequiredEnvVars() {
+            return Collections.emptyList();
+        }
         public ClaimType getDefaultType() {
             return new StringClaimType();
         }

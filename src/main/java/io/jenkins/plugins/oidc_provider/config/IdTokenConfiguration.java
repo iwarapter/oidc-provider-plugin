@@ -46,12 +46,12 @@ import org.kohsuke.stapler.StaplerRequest;
     private static final List<ClaimTemplate> DEFAULT_CLAIM_TEMPLATES = Collections.emptyList();
 
     private static final List<ClaimTemplate> DEFAULT_BUILD_CLAIM_TEMPLATES = Collections.unmodifiableList(Arrays.asList(new ClaimTemplate[] {
-        new ClaimTemplate(Claims.SUBJECT, "${JOB_URL}", new StringClaimType()),
-        new ClaimTemplate("build_number", "${BUILD_NUMBER}", new IntegerClaimType())
+        new ClaimTemplate(Claims.SUBJECT, "${JOB_URL}", new StringClaimType(), Collections.emptyList()),
+        new ClaimTemplate("build_number", "${BUILD_NUMBER}", new IntegerClaimType(), Collections.emptyList())
     }));
 
     private static final List<ClaimTemplate> DEFAULT_GLOBAL_CLAIM_TEMPLATES = Collections.singletonList(
-        new ClaimTemplate(Claims.SUBJECT, "${JENKINS_URL}", new StringClaimType()));
+        new ClaimTemplate(Claims.SUBJECT, "${JENKINS_URL}", new StringClaimType(), Collections.emptyList()));
 
     public static @NonNull IdTokenConfiguration get() {
         return ExtensionList.lookupSingleton(IdTokenConfiguration.class);
